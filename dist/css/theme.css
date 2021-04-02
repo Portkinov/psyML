@@ -1,0 +1,17 @@
+#psyML_form{
+    display: flex;
+    flex-direction: column;
+}
+#psyML_form button {
+    width:fit-content;
+}
+#psyML_form textarea, 
+#psyML_form div {
+    margin-top:1rem;
+    margin-bottom:1rem;
+}
+.psyML.footer{
+    display:flex;
+    width:100%;
+    padding:3rem;
+}
