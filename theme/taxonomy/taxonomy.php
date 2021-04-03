@@ -10,15 +10,25 @@ class PsyMLTaxonomy extends \psyML_Wp {
   public static function run(){
 
     //Add color taxonomy
-    \add_action( 'init', array( get_class(), 'add_taxonomy' ));
+    \add_action( 'init', array( get_class(), 'add_taxonomy' ),0 );
 
   }
 
   public static function add_taxonomy() {
           //get post type options
-    $types = \get_post_types( '','names');
+    $kvtypes = \get_post_types( '','names');
+    $types = '';
+    foreach($kvtypes as $type => $val){
+ 
+      $types.= $val.',';
+    }
+    $types = rtrim($types, ',');
+    $types = explode(',', $types);
     $types = Setup::unset_nonsense($types);
-    \register_taxonomy( 'hexaco', array( $types ), array(
+    $arraystring = implode(",", $types);
+    $arraystring.= ",psyml";
+    $typearr = explode(',',$arraystring);
+    \register_taxonomy( 'hexaco', $typearr, array(
       'hierarchical' => true,
       'labels' => array(
         'name' => _x( 'Hexaco', 'taxonomy general name' ),
@@ -41,14 +51,14 @@ class PsyMLTaxonomy extends \psyML_Wp {
       'capabilities' => array(
         'manage_terms' => 'administrator',
         'edit_terms' => 'administrator',
-        'delete_terms' => '',
-        'assign_terms' => ''
+        'delete_terms' => 'administrator',#delete
+        'assign_terms' => 'administrator'#delete
       ),
       'show_in_rest' => false,
       'query_var' => true,
-      'public' => false,
-      'show_ui' => false,
-      'show_in_menu' => false,
+      'public' => true, #false
+      'show_ui' => true, #false
+      'show_in_menu' => true, #false
       'show_admin_column' => true
       ));
     

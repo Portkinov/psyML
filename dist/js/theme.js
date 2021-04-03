@@ -1,5 +1,6 @@
 const psyML_submit = async(e) => {
-    const location = props.ajaxurl + '?action=do_personality_call';
+
+    const location = props.ajaxurl + '?action=do_hexformcall';
     let text = get_form_first_textarea( e.target.closest('FORM') );
     let display_target = e.target.dataset.displayTarget;
     let display_element = (display_target) ? document.getElementById(display_target) : false ;
@@ -12,7 +13,8 @@ const psyML_submit = async(e) => {
         let response = await sendit(location, senddata);   
         if(response && response.status){
             if(response.status == 200){
-                window.location.href = response.data.link;
+                console.log(response);
+                window.location.href = response.link;
             } else {
                 if(display_element){
                  display_element.innerHTML = '<pre>' + JSON.stringify(response) + '</pre>';

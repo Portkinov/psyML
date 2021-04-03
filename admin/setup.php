@@ -39,17 +39,17 @@ class Setup extends \psyML_Wp {
     }
 
     public static function unset_nonsense($post_array){
+        $kill_list = array(
+            'attachment', 'revision', 'nav_menu_item', 'customize_changeset',
+            'oembed_cache', 'user_request','wp_block', 'custom_css', 'psyml'
+        );
+        $returnlist = '';
+        foreach($post_array as $idx => $post){
+            if(!in_array($post,$kill_list)) $returnlist.=$post.',';
+        }
+        $returnlist = rtrim($returnlist,',');
         
-        if(isset($post_array['attachment'])) unset($post_array['attachment'] );
-        if(isset($post_array['revision'])) unset($post_array['revision']);
-        if(isset($post_array['nav_menu_item'])) unset($post_array['nav_menu_item']);
-        if(isset($post_array['customize_changeset'])) unset($post_array['customize_changeset']);
-        if(isset($post_array['oembed_cache'])) unset($post_array['oembed_cache']);
-        if(isset($post_array['user_request'])) unset($post_array['user_request']);
-        if(isset($post_array['wp_block'])) unset($post_array['wp_block']);
-        if(isset($post_array['custom_css'])) unset($post_array['custom_css']);
-
-        return $post_array;
+    return explode(',', $returnlist);
     }
     
     public static function register_theme_settings() {
@@ -64,7 +64,11 @@ class Setup extends \psyML_Wp {
         );
 
         #register post type options
-        $types = get_post_types( '','names');
+        $kvtypes = \get_post_types( '','names');
+        $types = array();
+        foreach($kvtypes as $type => $val){
+          array_push($types, $val);
+        }
         $types = self::unset_nonsense($types);
         foreach($types as $type){
             \register_setting( strtolower(self::text_domain).'-options', 'psyml_'.strtolower($type) );

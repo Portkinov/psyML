@@ -89,7 +89,9 @@ if ( ! class_exists( 'psyML_Wp' ) ) {
             require_once self::get_plugin_path( 'theme/taxonomy/taxonomy.php');
 
             // Admin - All "Back End" Files Associated with the Wordpress Admin View
-            require_once self::get_plugin_path( 'admin/setup.php') ; //Setup Page
+            require_once self::get_plugin_path( 'admin/setup.php'); //Setup Page
+            require_once self::get_plugin_path( 'admin/pages.php'); //Create Content and Landing Pages for psyML Content
+            require_once self::get_plugin_path( 'admin/content.php');
             require_once self::get_plugin_path( 'admin/functions.php' ); 
 
             // View - This class loads templates

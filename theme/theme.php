@@ -24,8 +24,8 @@ class ThemeFunctions extends \psyML_Wp {
         \wp_enqueue_script(self::text_domain.'_theme-js', self::get_plugin_url('dist/js/theme.js'), array('jquery'), self::version, false);  
         \wp_enqueue_style(self::text_domain.'_theme-css', self::get_plugin_url('dist/css/theme.css'), array(), self::version, 'all');
         \wp_localize_script(self::text_domain.'_theme-js', 'props', array(
-            'ajaxurl' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('do_personality_call')
+            'ajaxurl' => \admin_url('admin-ajax.php'),
+            'nonce' => \wp_create_nonce('do_personality_call')
         ));
     }
 

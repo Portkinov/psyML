@@ -15,3 +15,23 @@
     width:100%;
     padding:3rem;
 }
+
+/* landing page recommended posts */
+.postwrap{
+    display:flex;
+    padding:1rem;
+    align-items:center;
+}
+.singular .postwrap .post-thumbnail,
+.postwrap .post-thumbnail{
+    width:100%;
+    max-width:300px;
+    padding:15px;
+    border-radius:3px;
+}
+.psyml-topwrap .entry-header .psyml-header-image {
+    width: 100%;
+    padding-top: 56.9%;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+}

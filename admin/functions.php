@@ -20,7 +20,9 @@ class AdminFunctions extends \psyML_Wp {
         \add_action('admin_enqueue_scripts', array(get_class(), 'admin_enqueue' ) );
  
         \add_action('wp_ajax_do_personality_call', array(get_class(), 'do_personality_call'));
-        \add_action('wp_ajax_nopriv_do_personality_call', array(get_class(), 'do_personality_call'));
+
+        \add_action('wp_ajax_do_hexformcall', array(get_class(), 'do_hexformcall'));
+        \add_action('wp_ajax_nopriv_do_hexformcall', array(get_class(), 'do_hexformcall'));
 
         \add_action('wp_ajax_tag_marked_posts', array(get_class(), 'tag_marked_posts'));
         \add_action('wp_ajax_tag_marked_posts_firstrun', array(get_class(), 'tag_marked_posts_firstrun'));
@@ -126,8 +128,12 @@ class AdminFunctions extends \psyML_Wp {
         return $currentnum;
     }
     public static function get_psyml_post_types(){
-        $types = get_post_types( '','names');
-        $types = Setup::unset_nonsense($types);
+        $kvtypes = \get_post_types( '','names');
+        $flat_types = array();
+        foreach($kvtypes as $k=>$v){
+            array_push($flat_types, $k);
+        }
+        $types = Setup::unset_nonsense($flat_types);
         $tagtypes = array();
         foreach($types as $type){
             if( \get_option('psyml_'.$type) === 'yes') array_push($tagtypes, $type);
@@ -260,7 +266,6 @@ class AdminFunctions extends \psyML_Wp {
                 if($term && $term !== 'Could Not Determine Hexaco Results.'){
                     #tag post       
                     $tagged = \wp_set_object_terms( $ID, strtolower($term['Key']), 'hexaco', false );
-                    error_log($tagged);
                     #update results array
                     $results_array = self::update_results_array($term['Key'],$results);
 
@@ -369,8 +374,7 @@ class AdminFunctions extends \psyML_Wp {
     }
 
     private static function make_personality_call( $text, $key ){
-        error_log('making personality call');
-        error_log($text);
+
         $url = 'https://psymlapi.appspot.com/personality?key='.$key;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -397,6 +401,154 @@ class AdminFunctions extends \psyML_Wp {
         } else {
             return $result;
         }
+    }
+    private static function make_full_personality_call( $text, $key ){
+
+        
+        $url = 'https://psymlapi.appspot.com/personality_full?key='.$key;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+          'Accept: application/json',
+          'Content-Type: application/json',
+        ));
+        $bodyArray = array(
+          'medium' => 'twitter',
+          'sentences' => sanitize_text_field( $text ),
+        );
+        $body = json_encode($bodyArray);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+        $result = curl_exec($ch);
+   
+        if($result === false){
+            echo json_encode(array('status'=>400, 'message'=>'Could not execure CURL command'));
+            wp_die();
+        } else if(trim($result) === 'No personality'){
+            echo json_encode(array('status'=>400, 'message'=>'No personality'));
+            wp_die();
+        } else {
+            return $result;
+        }
+    }
+    public static function do_hexformcall(){
+        #No post No nonce No service
+        if(!isset($_POST['nonce'])) return false;
+        if(!isset($_POST['analysis_text'])) return false;
+        $text = $_POST['analysis_text'];
+        $nonce = $_POST['nonce'];
+        if(empty($text)){
+            echo json_encode(array('status'=>400, 'message'=>'Please include some text.'));
+            wp_die();
+        }
+        #1 - Nonce 
+        $verified = \wp_verify_nonce( $nonce, 'do_personality_call' );
+
+        if($verified){
+            $api_key = esc_attr( \get_option('psyml_api_key') );
+            # 2 - We have key & text
+            
+            $result = self::make_full_personality_call($text, $api_key);
+
+            if($result){
+                #before json_decode, we need to replace single quotes with doublequotes
+                #for PHPs json linter
+                $result = str_replace("'", '"', $result);
+
+                # A - Calculate Hexaco
+                $resultArray = json_decode($result, true);
+
+                $topArray = array(); 
+                $dimensionArray = array();           
+                $results= $resultArray['response'];
+                #Separate the Scoring Dimensions vs. Sub Dimensions
+                $currentrow = array();
+                foreach($results as $row ){
+                    if( array_key_exists( 'subDimensions', $row) ){
+
+                        $toprow = array("type"=> $row["type"], "score"=> $row["score"]);
+                        array_push($topArray, $toprow);
+                        $bottom = $row['subDimensions'];
+                        foreach($bottom as $botrow){
+                            array_push($dimensionArray,$botrow);
+                        }
+                    } else {
+                        array_push($dimensionArray, $row);
+                    }
+                }
+                $topScore = 0;
+                $realScore = 0;
+                $topType = false;
+
+                foreach($topArray as $row){
+                    $score = abs(floatval ($row['score'] ));
+                    if($score > $topScore) {
+                        $topScore = $score;
+                        $realScore = floatval($row['score'] );
+                        $topType = $row['type'];
+                    }
+                }
+
+                #Log this out if it doesnt work
+                if($topType === false){
+                    if(self::$debug) error_log('Could Not Determine Hexaco Results.' );
+                    echo json_encode(array('status'=>400, 'message'=>'Error Translating Hexaco Results.'));
+                    wp_die();
+                }
+                        
+                $key = substr($topType,0,1);
+                if($key === 'N') $key = 'E';
+                $key .= (abs($realScore) === $realScore) ? 'h' : 'l';
+
+                #B - get Hexaco Info
+                $info = Hexaco::get_info($key);
+
+                if($info === false){
+                    if(self::$debug) error_log('Error Translating Hexaco Results.' );
+                    echo json_encode(array('status'=>400, 'message'=>'Error Translating Hexaco Results.'));
+                    wp_die();
+                } else {
+                    #All is good - Now we do SubDimensions
+                    $translateArray = array();
+                    foreach($dimensionArray as $subdim){
+                        $name = str_replace(' ', '_', trim($subdim['type']));
+                        $height = false;
+                        $score = floatval($subdim['score']);
+                        /* Score Criteria */
+                        /*  -1 to -.33, -.3299999 to .3299999 and .33 + */
+                        if($score <= -.33 ){
+                            $height = 'low';
+                        } else if($score <= .3299999){
+                            $height = 'medium';
+                        } else if( $score >= .33 ){
+                            $height = 'high';
+                        } else {
+                            $height = 'Could not determine this score range.';
+                        }
+                        array_push( $translateArray, array($name=>$height));
+                    }
+
+
+                    $link = \get_site_url() . '/psyml-results/?result='.$key;
+                    foreach($translateArray as $subrow){
+                        foreach($subrow as $k=>$v){
+
+                            $link.='&'.urlencode($k).'='.urlencode($v);
+                        }
+                    }
+
+                    echo json_encode(array('status'=> 200, 'data'=>$resultArray, 'link'=>$link ));
+                    wp_die();
+                }
+            }
+        } else { 
+
+            if(self::$debug) error_log('Failed Nonce');
+            echo json_encode(array('status'=>400, 'message'=>'Failed Authentication check. Check with site admin.'));
+            wp_die();
+        }
+
     }
 
     public static function do_personality_call( $text ) {
@@ -462,5 +614,4 @@ class AdminFunctions extends \psyML_Wp {
             wp_die();
         }
     }
-
 }
