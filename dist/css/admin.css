@@ -31,6 +31,7 @@ header.psyml-admin-header h3.psyml-admin-header-title{
     flex-direction: column;
     padding: 40px;
     box-shadow: inset 0 0 10px #393939;
+    color: white;
 }
 .psyml-wrap hr {
     border-top: 1px solid #777;
