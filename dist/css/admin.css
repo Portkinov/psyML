@@ -1,6 +1,7 @@
 /* Options Page */
 .toplevel_page_psyml-settings #wpcontent {
     background: #292929;
+    height:100%;
 }
 header.psyml-admin-header{
     width: calc(100% + 20px);
@@ -83,6 +84,7 @@ header.psyml-admin-header h3.psyml-admin-header-title{
 }
 body.toplevel_page_psyml-settings #wpbody-content{
     margin-top: 60px;
+    height:100%;
 }
 .hexaco-panel{
     display:flex;
