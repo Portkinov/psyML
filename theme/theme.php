@@ -17,7 +17,7 @@ class ThemeFunctions extends \psyML_Wp {
     public function __construct() {
 
         \add_action('wp_enqueue_scripts', array(get_class(), 'theme_enqueue' ) );
-        \add_shortcode( 'psyML-text', array(get_class(), 'psyml_textform' ));
+        \add_shortcode( 'psyML-analysis', array(get_class(), 'psyml_textform' ));
     }
     
     public static function theme_enqueue() {

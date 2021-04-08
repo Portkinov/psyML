@@ -372,15 +372,3 @@ class Setup extends \psyML_Wp {
         echo $markup;
     }
 }
-/*
-
-        $markup = '<div class="psyml_admin_background"><div class="toppanel"><div class="bars"><div class="letter"><span class="Hh">Hh<span class="thecount">';
-        $markup.= '</span></span><span class="Hl">Hl</span></div><div class="letter"><span class="Eh">Eh<span class="thecount">';
-        $markup.= '</span></span><span class="El">El</span></div><div class="letter"><span style="background:transparent;" class="Xh">Xh</span>';
-        $markup.= '<span style="background:transparent;" class="Xl">Xl</span></div><div class="letter"><span class="Ah">Ah</span>';
-        $markup.= '<span style="background:transparent;" class="Al">Al</span></div><div class="letter"><span class="Ch">Ch</span>';
-        $markup.= '<span class="Cl">Cl</span></div><div class="letter"><span class="Oh">Oh</span>';
-        $markup.= '<span class="Ol">Ol</span></div></div></div><div class="bottompanel"><ul class="legend"><li>H</li><li>E</li><li>X</li><li>A</li><li>C</li><li>O</li></ul></div></div>';
-        echo $markup;
-
-        */

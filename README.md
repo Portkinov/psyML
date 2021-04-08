@@ -5,11 +5,11 @@
 **Tested up to:** 5.6.0  
 **Stable tag:** 1.0.0
 
-A simple plugin to get started with the psyML API 
+Add the psyML API to your site
 
 ## Getting Started
 
-To display a simple textarea form that submits to the psyML API use the **\[psyML-text\]** shortcode in pages, templates, or widgets.
+To display a simple textarea form that submits to the psyML API use the **\[psyML-analysis\]** shortcode in pages, templates, or widgets.
 
 ### Required
 
