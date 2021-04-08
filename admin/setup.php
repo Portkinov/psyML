@@ -41,7 +41,7 @@ class Setup extends \psyML_Wp {
     public static function unset_nonsense($post_array){
         $kill_list = array(
             'attachment', 'revision', 'nav_menu_item', 'customize_changeset',
-            'oembed_cache', 'user_request','wp_block', 'custom_css', 'psyml'
+            'oembed_cache', 'user_request','wp_block', 'custom_css', 'psyml', 'psyml-subdimension'
         );
         $returnlist = '';
         foreach($post_array as $idx => $post){
@@ -233,8 +233,11 @@ class Setup extends \psyML_Wp {
         ?>
         <div id="status_panel">
         <?php $tagged_posts = self::get_post_count('hexaco'); ?>
-        <p>It looks like we're all set to tag posts.</p>
+        <p>Would you like to tag your posts with Hexaco (Shows Recommended Content)?</p>
         <div class="button" data-display-panel="status_panel" onclick="tag_marked_posts(event);">Tag Posts</div>
+        <?php self::do_static_print_chart();
+
+        ?>
         </div>
         <?php
     }
@@ -361,4 +364,23 @@ class Setup extends \psyML_Wp {
         $header.= '<h3 class="psyml-admin-header-title">psyML</h3></header>';
         echo $header;
     }
+    public static function do_static_print_chart(){
+        $markup = '<div class="psyml_admin_background"><div class="toppanel"><div class="bars"><div class="letter"></div>';
+        $markup.= '<div class="letter"></div><div class="letter"></div><div class="letter"></div><div class="letter"></div>';
+        $markup.= '<div class="letter"></div></div></div><div class="bottompanel">';
+        $markup.= '<ul class="legend"><li>H</li><li>E</li><li>X</li><li>A</li><li>C</li><li>O</li></ul></div></div>';
+        echo $markup;
+    }
 }
+/*
+
+        $markup = '<div class="psyml_admin_background"><div class="toppanel"><div class="bars"><div class="letter"><span class="Hh">Hh<span class="thecount">';
+        $markup.= '</span></span><span class="Hl">Hl</span></div><div class="letter"><span class="Eh">Eh<span class="thecount">';
+        $markup.= '</span></span><span class="El">El</span></div><div class="letter"><span style="background:transparent;" class="Xh">Xh</span>';
+        $markup.= '<span style="background:transparent;" class="Xl">Xl</span></div><div class="letter"><span class="Ah">Ah</span>';
+        $markup.= '<span style="background:transparent;" class="Al">Al</span></div><div class="letter"><span class="Ch">Ch</span>';
+        $markup.= '<span class="Cl">Cl</span></div><div class="letter"><span class="Oh">Oh</span>';
+        $markup.= '<span class="Ol">Ol</span></div></div></div><div class="bottompanel"><ul class="legend"><li>H</li><li>E</li><li>X</li><li>A</li><li>C</li><li>O</li></ul></div></div>';
+        echo $markup;
+
+        */

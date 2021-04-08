@@ -1,4 +1,7 @@
 /* Options Page */
+.toplevel_page_psyml-settings #wpcontent {
+    background: #292929;
+}
 header.psyml-admin-header{
     width: calc(100% + 20px);
     left: -20px;
@@ -21,10 +24,16 @@ header.psyml-admin-header h3.psyml-admin-header-title{
 
 .psyml-wrap {
     padding-top: 60px;
+    margin-right: 2%;
     max-width: 100%;
     display: flex;
     flex-direction: column;
     padding: 40px;
+    box-shadow: inset 0 0 10px #393939;
+}
+.psyml-wrap hr {
+    border-top: 1px solid #777;
+    border-bottom:none;
 }
 .psyml-wrap div.button{
     background: #2271b1;
@@ -53,24 +62,36 @@ header.psyml-admin-header h3.psyml-admin-header-title{
     border-color: #135e96;
     color: #fff;
 }
-.psyml-wrap input[type=text]  {
+.psyml-wrap input[type=text],
+.psyml-wrap input[type=password]  {
     width:80%;
+    background:#222;
+    color:#777;
+    border:1px solid #fff;
+    border-radius:3px;
+}
+.psyml-wrap input[type=checkbox]{
+    background:#222;
+    color:#777;
 }
 .psyML.footer{
     display:flex;
     width:100%;
-    padding:5rem;
+    padding:2rem 0;
     box-sizing: border-box;
+    color:white;
 }
 body.toplevel_page_psyml-settings #wpbody-content{
     margin-top: 60px;
 }
 .hexaco-panel{
     display:flex;
+    color: #fff
 }
 .hexaco-panel .left-panel,
 .hexaco-panel .right-panel{
     width:50%;
+    padding:10px;
 }
 
 /*BAR CHART*/

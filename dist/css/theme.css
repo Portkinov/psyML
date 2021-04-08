@@ -21,17 +21,105 @@
     display:flex;
     padding:1rem;
     align-items:center;
+    border-bottom: 1px solid #f1f1f1;
+}
+.postwrap:last-of-type{
+    border-bottom:none;
 }
 .singular .postwrap .post-thumbnail,
 .postwrap .post-thumbnail{
-    width:100%;
-    max-width:300px;
-    padding:15px;
-    border-radius:3px;
+    width: 20%;
+    max-width: 200px;
+    padding: 15px;
+    border-radius: 3px;
 }
 .psyml-topwrap .entry-header .psyml-header-image {
     width: 100%;
     padding-top: 56.9%;
     background-repeat: no-repeat !important;
     background-size: contain !important;
+}
+.postwrap .more-link{
+    font-size: 70%;
+    text-decoration: none;
+}
+/* SUBDIMENSION GRID */
+.psyml-subdimensions-wrap{
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:center;
+  padding:0;
+  margin: 1rem 0;
+}
+.psyml-subdimensions-wrap .psyml-subitem-wrap{
+  display:flex;
+  border-top:1px solid #f1f1f1;
+  border-right:1px solid #f1f1f1;
+  padding:1.5rem;
+  flex-direction:column;
+  width:100%;
+  background:white;
+}
+
+.psyml-subitem-wrap .psyml-subdimension-image{
+  width:15%;
+  padding-bottom:15%;
+  display:inline-flex;
+  background-size:contain;
+  background-repeat:no-repeat;
+  margin-right:2rem;
+}
+.psyml-subitem-wrap .icon-header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+  .psyml-subdimensions-wrap .psyml-subitem-wrap{
+    width:calc(49.9% - 3rem);
+  }
+    .psyml-subdimensions-wrap .psyml-subitem-wrap:nth-of-type(2n){
+    border-right:none;
+  }
+}
+
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+  .psyml-subdimensions-wrap .psyml-subitem-wrap{
+    width:calc(33% - 3rem);
+  }
+      .psyml-subdimensions-wrap .psyml-subitem-wrap:nth-of-type(2n){
+    border-right:1px solid #f1f1f1;
+  }
+    .psyml-subdimensions-wrap .psyml-subitem-wrap:nth-of-type(3n){
+    border-right:none;
+  }
+}
+
+
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) { 
+  .psyml-subdimensions-wrap .psyml-subitem-wrap{
+    width:calc(24.9% - 3rem);
+  }
+      .psyml-subdimensions-wrap .psyml-subitem-wrap:nth-of-type(2n){
+    border-right:1px solid #f1f1f1;
+  }
+      .psyml-subdimensions-wrap .psyml-subitem-wrap:nth-of-type(3n){
+    border-right:1px solid #f1f1f1;
+  }
+    .psyml-subdimensions-wrap .psyml-subitem-wrap:nth-of-type(4n){
+    border-right:none;
+  }
+}
+
+.psyml-divider {
+    margin:1rem;
 }
