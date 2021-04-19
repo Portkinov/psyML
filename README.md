@@ -3,7 +3,7 @@
 **Tags:** plugin, psychometrics  
 **Requires at least:** 5.0  
 **Tested up to:** 5.6.0  
-**Stable tag:** 1.0.2
+**Stable tag:** 1.0.3
 
 Add the psyML API to your site
 

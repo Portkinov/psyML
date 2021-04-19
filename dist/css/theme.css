@@ -46,7 +46,9 @@
 .psyml-container{
   width: 100%;
   padding: 1rem;
-
+}
+.psyml-topwrap{
+  padding: 1.5rem 1rem;
 }
 /* SUBDIMENSION GRID */
 .subdim-title{
