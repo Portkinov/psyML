@@ -43,15 +43,23 @@
     font-size: 70%;
     text-decoration: none;
 }
+.psyml-container{
+  width: 100%;
+  padding: 1rem;
+
+}
 /* SUBDIMENSION GRID */
+.subdim-title{
+  padding: 1rem 0;
+}
 .psyml-subdimensions-wrap{
   box-sizing:border-box;
   display:flex;
   flex-direction:row;
   flex-wrap:wrap;
   justify-content:center;
-  padding:0;
-  margin: 1rem 0;
+  padding:12px;
+  margin: .5rem 1.5rem;
 }
 .psyml-subdimensions-wrap .psyml-subitem-wrap{
   display:flex;

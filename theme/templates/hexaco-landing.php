@@ -61,6 +61,7 @@ if ( $the_query->have_posts() ) {
 /* Reset Post Data */
 wp_reset_postdata();
 ?>
+<div class="psyml-container">
 <h4 class="psyml-divider">How Your Writing Scores</h4>
 <?php
 /*
@@ -111,7 +112,7 @@ if ( $the_query->have_posts() ) {
 }
 /* Reset Post Data */
 wp_reset_postdata();
-
+echo '</div>';
 #now get related  posts
 #get page(s)
 $args = array(
