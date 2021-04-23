@@ -295,7 +295,7 @@ class Pages extends \psyML_Wp{
             'show_in_rest'       => false,
           #  'rest_base'          => 'psyML',
           #  'rest_controller_class' => 'WP_REST_Posts_Controller',
-            'supports'           => array( 'title', 'editor', 'post-thumbnails', 'page-attributes'),
+            'supports'           => array( 'title', 'editor', 'thumbnail', 'page-attributes'),
             'taxonomies'         => array( 'hexaco')       
         );
     
