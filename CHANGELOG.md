@@ -1,3 +1,8 @@
+### 1.0.4 ### 
+
+Featured Image missing patch
+
+
 ### 1.0.3 ### 
 
 Formatting cleanup
