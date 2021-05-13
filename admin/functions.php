@@ -26,6 +26,8 @@ class AdminFunctions extends \psyML_Wp {
 
         \add_action('wp_ajax_tag_marked_posts', array(get_class(), 'tag_marked_posts'));
         \add_action('wp_ajax_tag_marked_posts_firstrun', array(get_class(), 'tag_marked_posts_firstrun'));
+
+        \add_action('wp_ajax_uninstall_delete_posts', array( get_class(), 'uninstall_delete_posts'));
     }
 
     public static function admin_enqueue() {
@@ -37,6 +39,19 @@ class AdminFunctions extends \psyML_Wp {
             'debug' => self::$debug,
             'nonce' => \wp_create_nonce( strtolower(self::text_domain) )
         ));
+    }
+
+    public static function uninstall_delete_posts(){
+        if(!empty($_POST['deleteposts'])){
+            if($_POST['deleteposts']=='yes' ) {
+                \update_option( 'psyml_deleteposts', 1 );
+            } else if($_POST['deleteposts']=='no' ){
+                \update_option( 'psyml_deleteposts', 0 );
+            }
+            
+        }
+        echo json_encode(array('message'=>'Got it. Thanks for using PsyML'));
+        wp_die();
     }
 
     private static function get_current_run($run_id){

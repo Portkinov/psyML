@@ -112,11 +112,10 @@ if ( ! class_exists( 'psyML_Wp' ) ) {
             \update_option( $option, self::version );     
         }
 
-
         public static function register_deactivation_hook() {
             
-            $option = self::text_domain . '-version';
-            \delete_option( $option );
+            #@Todo need to figure out how to set flag for uninstall.php to read without
+            #another page load (since plugin dies after deactivation)
         }
 
         public static function load_plugin_textdomain() 
