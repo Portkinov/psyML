@@ -42,20 +42,50 @@ class Pages extends \psyML_Wp{
     }
 
     public static function slug_defender( $post_id, $data){
-        error_log(print_r($data,true));
         if($data['post_type'] == 'psyml' || $data['post_type'] == 'psyml-subdimension'){
             $oldslug = \get_post_field( 'post_name', $post_id );
             if(isset($data['post_name']) && $data['post_name'] !== $oldslug ){
-                error_log('passed checks');
+
                 //Sorry sir, your kind isn't welcome here
                 #since we're dying, there's no way to hook admin notices so we carry in the URL string
-                \wp_safe_redirect( \get_admin_url() . 'post.php?post='.$post_id.'&action=edit&psyml_notice=1');
-                die();
+                #Functionality disabled until we can find a better way around it
+               # \wp_safe_redirect( \get_admin_url() . 'post.php?post='.$post_id.'&action=edit&psyml_notice=1');
+               # die();
 
 
             }
             
         }
+    }
+
+    public static function delete_all_pysml_posts(){
+        $args = array(
+            'post_type' => 'psyml',
+            'posts_per_page' => -1
+        );
+
+        $query = new \WP_Query($args);
+        if ($query->have_posts() ) {
+            while( $query->have_posts() ) {
+                $query->the_post();
+                \wp_delete_post( get_the_ID() );
+            }
+        }
+        \wp_reset_postdata();
+        $args = array(
+            'post_type' => 'psyml-subdimension',
+            'posts_per_page' => -1
+        );
+
+        $query = new \WP_Query($args);
+        if ($query->have_posts() ) {
+            while( $query->have_posts() ) {
+                $query->the_post();
+                \wp_delete_post( get_the_ID() );
+            }
+        }
+        \wp_reset_postdata();
+            
     }
 
 
@@ -68,15 +98,18 @@ class Pages extends \psyML_Wp{
         return $template;
     }
     public static function add_psyml_subdimension_pages(){
+        $auto_add = \get_option('auto_add_psyml');
+        if($auto_add == "yes"){
+            foreach( Content::SUBDIMENSION as $dimension => $subarray){
 
-        foreach( Content::SUBDIMENSION as $dimension => $subarray){
-
-          $high = self::add_psyml_subdimension($dimension, 'high' );
-          $medium = self::add_psyml_subdimension($dimension, 'medium' );
-          $low = self::add_psyml_subdimension($dimension, 'low' );
+              $high = self::add_psyml_subdimension($dimension, 'high' );
+              $medium = self::add_psyml_subdimension($dimension, 'medium' );
+              $low = self::add_psyml_subdimension($dimension, 'low' );
+            }
+            #then add archive
+            self::add_page('psyml-results', 'Your psyML Analysis Results');
+            \update_option('auto_add_psyml', 'no');
         }
-        #then add archive
-        self::add_page('psyml-results', 'Your psyML Analysis Results');
     }
     private static function get_psyml_page_content( $key ){
 
@@ -239,13 +272,23 @@ class Pages extends \psyML_Wp{
     }
 
     public static function add_psyml_pages(){
+        $auto_add = \get_option('auto_add_psyml');
 
-        foreach( Hexaco::HEXACO as $idx => $array ){
-            $key = $array['Key'];
-            self::add_psyml_page($key);
+        if($auto_add === "yes"){
+            #start of process - delete the old pages first
+            self::delete_all_pysml_posts();
+            #then
+            foreach( Hexaco::HEXACO as $idx => $array ){
+                $key = $array['Key'];
+                self::add_psyml_page($key);
+
+                #then add archive
+                self::add_page('psyml-results', 'Your psyML Analysis Results');
+            }
+        # we will do this on sub-dimension pages, which fire later
+        #\update_option('auto_add_psyml', 'no');
         }
-        #then add archive
-        self::add_page('psyml-results', 'Your psyML Analysis Results');
+
     }
     public static function psyml_pages_admin_order( $wp_query ) {
         if (\is_admin()) {

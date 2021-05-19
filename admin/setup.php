@@ -83,6 +83,9 @@ class Setup extends \psyML_Wp {
         #Plugin Settings Main
         \register_setting( strtolower(self::text_domain).'-options', 'psyml_skip_currently_tagged');
         \register_setting( strtolower(self::text_domain).'-options', 'psyml_skip_unpublished');
+
+        #Automatically Add Pages
+        \register_setting( strtolower(self::text_domain).'-options', 'auto_add_psyml');
         
         if(!\get_option('psyml_first_run_already')){
             \update_option('psyml_first_run_already', 'yes');
@@ -95,6 +98,8 @@ class Setup extends \psyML_Wp {
         $optionclasshidden = 'formrow theme_admin_hidden';
 
         \add_settings_field( 'psyml_api_key', 'API Key:', array(get_class(), 'do_password_psyml_api_key'), 'psyml-settings', strtolower(self::text_domain) .'-options', array('class' => $optionclass, 'label_for' => 'psyml_api_key') );
+
+        \add_settings_field('auto_add_psyml', 'Automatically generate default psyML subdimension pages?', array(get_class(), 'do_checkbox_auto_add_psyml'), 'psyml-settings', strtolower(self::text_domain) . '-options', array('label_for' => 'auto_add_psyml') );
 
         \add_settings_field( 'spacer', '', array(get_class(), 'do_spacer'), 'psyml-settings', strtolower(self::text_domain) .'-options' );
       
@@ -127,6 +132,14 @@ class Setup extends \psyML_Wp {
     public static function do_spacer(){
 
         printf('<br><hr>');
+    }
+
+    public static function do_checkbox_auto_add_psyml(){
+                //CHECKBOX
+        $fieldname = str_replace("do_checkbox_", "", __FUNCTION__);
+        printf(
+            '<input type="checkbox" id="'.$fieldname.'" name="'.$fieldname.'" value="%s" />', "yes"
+        );
     }
 
     //replace "option_name" with the name of your option and add settings field
@@ -296,6 +309,8 @@ class Setup extends \psyML_Wp {
                     <p>Skip unpublished pages?</p>
                     <!-- this function -->
                     <?php self::do_retag_posts('skip_unpublished'); ?>
+                    <p>Regenerate default psyML pages? (This will delete your current pages)</p>
+                    <?php self::do_checkbox_auto_add_psyml() ?>
                 </div>
 
                 <?php  submit_button("Save options"); ?>

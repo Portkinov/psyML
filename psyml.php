@@ -13,7 +13,7 @@
  * Plugin Name:     psyML for Wordpress
  * Plugin URI:      https://psyml.co/solutions/
  * Description:     Provides deep semantic analysis and classification of your content based on our industry-leading psychometrics.
- * Version:         1.0.4
+ * Version:         1.0.5
  * Author:          psyML
  * Author URI:      https://ben-toth.com/
  * License:         @ToDo
@@ -36,7 +36,7 @@ if ( ! class_exists( 'psyML_Wp' ) ) {
         private static $instance = null;
 
         // Plugin Settings
-        const version = '1.0.4';
+        const version = '1.0.5';
         static $debug = true; //turns PHP and javascript logging on/off
         const text_domain = 'psyml'; // for translation & namespacing ##
         const nice_name = 'psyML'; //should match text_domain except capitalization & whitespace
@@ -109,7 +109,10 @@ if ( ! class_exists( 'psyML_Wp' ) ) {
         public static function register_activation_hook() {
 
             $option = self::text_domain . '-version';
-            \update_option( $option, self::version );     
+            \update_option( $option, self::version ); 
+            #add psyML pages on first run
+            \update_option( 'auto_add_psyml', "yes" ); 
+                
         }
 
         public static function register_deactivation_hook() {
