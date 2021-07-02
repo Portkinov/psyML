@@ -127,7 +127,8 @@ class Content extends \psyML_Wp{
             'high'=> 'Some people like to think outside the box, but who said there was a box to begin with? Paradigm shifts make wholesale changes that drive innovation.  Innovation requires disruption and that requires people who aren’t afraid to march to their own drummer. Old ways of thinking will leave us in a rut.',
             'medium'=> 'Sometimes you need to breathe new life into an old problem.  A perspective shift can lead to incremental change which is a good path forward without rocking the boat.',
             'low'=> 'Tried and true, and by the book.  That’s the best way to go.  If it’s worked in the past and it is trusted, why alter it?  Problems are solved in a certain way and it’s best to stick with the traditional paths and with the norms that have gotten us here.'
-        )
+        ), 
+
     );
     public static function get_subdimensions( $key ){
         $key = str_replace(' ', '_', $key);

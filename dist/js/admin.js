@@ -58,8 +58,7 @@ const loopResults = async function( obj ) {
         let thisstep = {}
         if(obj.hasOwnProperty('data')){thisstep = obj.data} else {thisstep = obj}
         const step = await doResultStep(thisstep);
-        console.log('step');
-        console.log(step);
+
         let steperror = is_error(step);
         if(!steperror){
             if( step.data.hasOwnProperty('currentnum') &&

@@ -50,5 +50,26 @@ const sendit = async(location, senddata ) => {
         console.log(e);
         return e;
     } 
-
 }
+const doSpeechForms = () => {
+    let speechforms = document.getElementsByClassName('psyML_speechContainer');
+    if(speechforms.length){
+        if(typeof speechDisplay === "function"){
+   
+
+            /* no babel on this project */
+            for(let sform of speechforms){
+                let target = sform.dataset.target;
+                let textfallback = sform.dataset.textfallback;
+                let speechcontainer = sform.id;
+                let transcript = sform.dataset.transcript;
+                let sc = new speechDisplay( target, textfallback, speechcontainer, transcript );
+            }
+        }
+    }
+}
+/* ONLOAD FUNCTIONS */
+window.addEventListener('load', (event) => {
+
+    doSpeechForms();
+  });

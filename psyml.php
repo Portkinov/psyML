@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * psyML for Wordpress Plugin
+ * psyML Speech To Text for Wordpress Plugin
  *
  * @package         psyML
  * @author          psyML Development
@@ -10,7 +10,7 @@
  * @copyright       2021 psyML
  *
  * @wordpress-plugin
- * Plugin Name:     psyML for Wordpress
+ * Plugin Name:     psyML Speech To Text for Wordpress
  * Plugin URI:      https://psyml.co/solutions/
  * Description:     Provides deep semantic analysis and classification of your content based on our industry-leading psychometrics.
  * Version:         1.0.5

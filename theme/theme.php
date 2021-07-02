@@ -21,6 +21,8 @@ class ThemeFunctions extends \psyML_Wp {
     }
     
     public static function theme_enqueue() {
+        \wp_enqueue_script('speechcapture', self::get_plugin_url('dist/js/speechcapture.js'), array(), self::version, false); 
+        \wp_enqueue_script('speechdisplay', self::get_plugin_url('dist/js/speechdisplay.js'), array(), self::version, false); 
         \wp_enqueue_script(self::text_domain.'_theme-js', self::get_plugin_url('dist/js/theme.js'), array('jquery'), self::version, false);  
         \wp_enqueue_style(self::text_domain.'_theme-css', self::get_plugin_url('dist/css/theme.css'), array(), self::version, 'all');
         \wp_localize_script(self::text_domain.'_theme-js', 'props', array(
