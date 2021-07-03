@@ -6,6 +6,7 @@ const psyML_submit = async(e) => {
     let display_element = (display_target) ? document.getElementById(display_target) : false ;
 
     if(location && text ){
+        console.log('got location and text');
         let nonce =  props.nonce;
         let senddata = encodeURIComponent( 'analysis_text' ) + '=' + encodeURIComponent( text );
         senddata += '&' + encodeURIComponent( 'nonce' ) + '=' + encodeURIComponent( nonce );
@@ -50,6 +51,25 @@ const sendit = async(location, senddata ) => {
         console.log(e);
         return e;
     } 
+}
+const psyMLstripTags = (htmlstring) => {
+    let buffer = document.createElement('div');
+    buffer.innerHTML = htmlstring;
+    let text = buffer.textContent || buffer.innerText;
+    return text;
+}
+const psyML_submit_speech = (event) =>{
+    event.preventDefault();
+    let target = event.target;
+    if(event.target.tagName !== 'BUTTON') target = event.target.closest('BUTTON');
+    let speech2textbox = document.getElementById( target.dataset.speechtotext);
+    if( speech2textbox){
+        //strip tags
+        let text = speech2textbox.textContent || speech2textbox.innerText;
+        let textarea = document.getElementById('psyML_text');
+        textarea.value = text;
+        document.getElementById("psyML_main_submit").click();
+    }
 }
 const doSpeechForms = () => {
     let speechforms = document.getElementsByClassName('psyML_speechContainer');
