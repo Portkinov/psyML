@@ -97,6 +97,7 @@ if ( ! class_exists( 'psyML_Wp' ) ) {
             // View - This class loads templates
             require_once self::get_plugin_path( 'core/view.php' ); 
             require_once self::get_plugin_path( 'core/hexaco.php'); //Translates HEXACO table
+            require_once self::get_plugin_path( 'core/diamond-detail.php'); //render page content
 
             // Theme - All "Front End" Files Associated with the Frontend Views/Templates
             require_once self::get_plugin_path( 'theme/template.php' ); //setup frontend files (wp-load, enqueue, image register)

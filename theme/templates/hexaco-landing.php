@@ -1,9 +1,12 @@
 <?php
 use psyml\admin\Content as Content;
+use psyml\core\DiamondDetails as DiamondDetails;
 /**
  * The template for displaying psyML analysis results
  *
  */
+
+$use_diamond_details = true;
 
 get_header();
 
@@ -12,7 +15,6 @@ $subdimensions = array();
 foreach($_GET as $k => $v) {
     if($v !== $Key){
         /*  psyml_unconventionality_low */
-
         //$dimension_text = Content::SUBDIMENSION[$k][$v];
         $slug = strtolower($k) . '_' . strtolower($v);
       //  $dimension = str_replace('_', ' ', $k);
@@ -21,7 +23,6 @@ foreach($_GET as $k => $v) {
     }
 }
 
-error_log(print_r($subdimensions, true));
 
 #get page(s)
 $args = array(
@@ -73,46 +74,55 @@ foreach($subdimensions as $row){
 }
 */
 #get Subdimension page(s)
-$args = array(
-    'post_type' => 'psyml-subdimension',
-    'post_status' => 'publish',
-    'posts_per_page'=>-1,
-    'post_name__in'  => $subdimensions
-);
-// The Query
+
 $the_query = new WP_Query( $args );
 
-error_log(print_r($the_query,true));
+if( $use_diamond_details ){
 
-// The Loop
-if ( $the_query->have_posts() ) {
-    echo '<div class="psyml-subdimensions-wrap">';
-    while ( $the_query->have_posts() ) {
-        $the_query->the_post();
-        echo '<div class="psyml-subitem-wrap">';
+    $diamond = new DiamondDetails( $subdimensions );
+    $diamond->render();
 
-        $image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_id() ), 'full'); 
-        if($image && isset($image[0])) {
- 
-            echo '<div class="icon-header"><div class="psyml-subdimension-image"';
-            echo ' style="background-image:url('. $image[0] .');"></div>';
-            echo '<h4 class="subdim-title">'. get_the_title() .  '</h4></div>';
-        } else {
-            echo '<h4 class="subdim-title">'. get_the_title() .  '</h4>';
-        }
-
-    
-        echo '<div class="subdim-content">';
-        the_content();
-        echo '</div></div>';
-    }
-    echo '</div';
 } else {
-    // no posts found
+
+    $args = array(
+        'post_type' => 'psyml-subdimension',
+        'post_status' => 'publish',
+        'posts_per_page'=>-1,
+        'post_name__in'  => $subdimensions
+    );
+    // The Query
+
+    // The Loop
+    if ( $the_query->have_posts() ) {
+        echo '<div class="psyml-subdimensions-wrap">';
+        while ( $the_query->have_posts() ) {
+            $the_query->the_post();
+            echo '<div class="psyml-subitem-wrap">';
+
+            $image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_id() ), 'full'); 
+            if($image && isset($image[0])) {
+     
+                echo '<div class="icon-header"><div class="psyml-subdimension-image"';
+                echo ' style="background-image:url('. $image[0] .');"></div>';
+                echo '<h4 class="subdim-title">'. get_the_title() .  '</h4></div>';
+            } else {
+                echo '<h4 class="subdim-title">'. get_the_title() .  '</h4>';
+            }
+
+        
+            echo '<div class="subdim-content">';
+            the_content();
+            echo '</div></div>';
+        }
+        echo '</div';
+    } else {
+        // no posts found
+    }
+    /* Reset Post Data */
+    wp_reset_postdata();
+    echo '</div>';
 }
-/* Reset Post Data */
-wp_reset_postdata();
-echo '</div>';
+
 #now get related  posts
 #get page(s)
 $args = array(

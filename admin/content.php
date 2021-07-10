@@ -1,11 +1,52 @@
 <?php
 namespace psyml\admin;
 
+/* 
 
+*/
 //spin it
 #\psyml\admin\Content::run();
 
 class Content extends \psyML_Wp{
+
+    const DIAMONDS = array(
+        'Honesty_Humility' => array(
+                'top' => 'Sincerity',
+                'left' => 'Fairness',
+                'right' => 'Modesty',
+                'bottom' => 'Greed_Avoidance'
+            ),
+        'Emotionality' => array(
+                'top' => 'Fearfulness',
+                'left' => 'Anxiety',
+                'right' => 'Dependence',
+                'bottom' => 'Sentimentality'
+            ),
+        'Extroversion' => array(
+                'top' => 'Social_Self-Esteem',
+                'left' => 'Sociability',
+                'right' => 'Liveliness',
+                'bottom' => 'Social_Boldness'
+            ),
+        'Openness' => array(
+                'top' => 'Aesthetic_Appreciation',
+                'left' => 'Inquisitiveness',
+                'right' => 'Creativity',
+                'bottom' => 'Unconventionality'
+            ),
+        'Conscientionsness' => array(
+                'top' => 'Organization',
+                'left' => 'Prudence',
+                'right' => 'Diligence',
+                'bottom' => 'Perfectionism'
+            ),
+        'Agreeableness' => array(
+                'top' => 'Forgiving',
+                'left' => 'Patience',
+                'right' => 'Flexibility',
+                'bottom' => 'Gentleness'
+            ),
+    );
     const SUBDIMENSION = array(
         'Sincerity' => array(
             'high'=> 'What you say is true. You have a hard time stretching thetruth even if it might benefit you. You have a need to be authentic in how you engage with the world.',
@@ -130,6 +171,7 @@ class Content extends \psyML_Wp{
         ), 
 
     );
+
     public static function get_subdimensions( $key ){
         $key = str_replace(' ', '_', $key);
         $dim = false;
