@@ -37,27 +37,85 @@ class DiamondDetails extends \psyML_Wp {
             $bottomkey = $subdimensions['bottom'];
             $bottomvalue = $keygrid[$bottomkey];
 
-            $markup.='<h1 class="fullpage">Diamond Detail</h1><div class="results-container"><div class="results-row">';
-            $markup.='<div class="results-col1"><div class="col-block"><h5 class="results-colheader">';
+
+
+
+            $markup.='<h1 class="fullpage">Diamond Detail</h1><div class="results-container"><div class="grid-top">';
+            $markup.='<div class="col1"><h5 class="results-colheader">';
             $markup.= self::prettykey($topkey).' '.ucfirst($topvalue).'</h5><div class="results-description">'.Content::SUBDIMENSION[$topkey][$topvalue];
-            $markup.='</div></div><div class="col-block leftcenter"><h4 class="results-col-head">'.$leftkey.'</h4>';
-            $markup.='</div><div class="col-block"><h5 class="results-colheader">'.self::prettykey($leftkey);
-            $markup.=' '.ucfirst($leftvalue).'</h5>';
-            $markup.='<div class="results-description">'.Content::SUBDIMENSION[$leftkey][$leftvalue].'</div></div></div>';
-            $markup.='<div class="results-col2"><div class="col-block-shrink"><h4 class="results-col-head">';
-            $markup.=self::prettykey($topkey).'</h4>';
-            $markup.='</div><div class="col-block-grow"><h2 class="results-diamondhead">'.$diamond.'</h2></div>';
-            $markup.='<div class="col-block-shrink"><h4 class="results-col-head">'.self::prettykey($bottomkey).'</h4></div></div>';
-            $markup.='<div class="results-col3"><div class="col-block"><h5 class="results-colheader">'.self::prettykey($rightkey);
+            $markup.='</div></div>';
+            $markup.='<div class="col2"><h4 class="results-col-head">';
+            $markup.=self::prettykey($topkey).'</h4></div><div class="col3">';
+            $markup.='<h5 class="results-colheader">'.self::prettykey($rightkey);
             $markup.=' '.ucfirst($rightvalue).'</h5><div class="results-description">'.Content::SUBDIMENSION[$rightkey][$rightvalue];
-            $markup.='</div></div><div class="col-block rightcenter"><h4 class="results-col-head">'.self::prettykey($rightkey).'</h4>';
-            $markup.='</div><div class="col-block"><h5 class="results-colheader">'.self::prettykey($bottomkey);
-            $markup.=' '.ucfirst($bottomvalue).'</h5>';
-            $markup.='<div class="results-description">'.Content::SUBDIMENSION[$bottomkey][$bottomvalue].'</div>';
-            $markup.='</div></div></div></div>';
+            $markup.='</div></div></div><div class="grid-mid"><div class="col1">';
+            $markup.='<h4 class="results-col-head">'.$leftkey.'</h4></div>';
+            $markup.='<div class="col2"><h2 class="results-diamondhead">'.$diamond.'</h2></div>';
+            $markup.='<div class="col3"><h4 class="results-col-head">'.self::prettykey($rightkey).'</h4>';
+            $markup.='</div></div>';
+            $markup.='<div class="grid-bottom"><div class="col1"><h5 class="results-colheader">';
+            $markup.=self::prettykey($leftkey).' '.ucfirst($leftvalue).'</h5>';
+            $markup.='<div class="results-description">'.Content::SUBDIMENSION[$leftkey][$leftvalue];
+            $markup.='</div></div>';
+            $markup.='<div class="col2"><h4 class="results-col-head">'.self::prettykey($bottomkey);
+            $markup.='</h4></div>';
+            $markup.='<div class="col3"><h5 class="results-colheader">'.self::prettykey($bottomkey);
+            $markup.=' '.ucfirst($bottomvalue).'</h5><div class="results-description">';
+            $markup.=Content::SUBDIMENSION[$bottomkey][$bottomvalue].'</div></div>';  
+            #end col3
+            $markup.='</div><!-- end column 3 -->';
+            #end grid bottom;=
+            $markup.='</div><!-- end results container -->';
 
         }
         return $markup;
+
+        
+            /*
+            <div class="results-container">
+                <div class="grid-top">
+                    <div class="col1">
+                        <h5 class="results-colheader">Organization Low</h5>
+                        <div class="results-description">S.</div>
+                    </div>
+                     <div class="col2">
+                        <h4 class="results-col-head">Organization</h4>
+                     </div>
+                    <div class="col3">
+                        <h5 class="results-colheader">Diligence Low</h5>
+                        <div class="results-description">Being.</div>
+                    </div>
+                </div>
+                <div class="grid-mid">
+                    <div class="col1">
+                        <h4 class="results-col-head">Prudence</h4>
+                    </div>
+                    <div class="col2">
+                        <h2 class="results-diamondhead">Conscientionsness</h2>
+                    </div>
+                    <div class="col3">
+                        <h4 class="results-col-head">Diligence</h4>
+                    </div>
+    
+                </div>
+      
+                <div class="grid-bottom">
+    
+                    <div class="col1">
+                        <h5 class="results-colheader">Prudence Low</h5>
+                        <div class="results-description">Life</div>
+                    </div>
+                    <div class="col2">
+                        <h4 class="results-col-head">Perfectionism</h4>
+                    </div>      
+                    <div class="col3">
+                        <h5 class="results-colheader">Perfectionism Low</h5>
+                        <div class="results-description">People .</div>
+                    </div>
+                </div>
+            </div>
+            */
+        
     }
     private static function keystoupper($key){
         $temparray = explode('_',$key);

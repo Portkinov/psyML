@@ -18,7 +18,7 @@
 .psyml-container h1::before,
 .psyml-container h2::before,
 .psyml-container h3::before,
-.psyml-container h4::before{
+.psyml-container h4::before {
 	display: none;
 }
 /* landing page recommended posts */
@@ -92,7 +92,7 @@
 	justify-content: center;
 	padding: 1rem;
 }
-/* Diamond Detail */
+/* Diamond Detail 
 
 
 .leftcenter, .rightcenter{
@@ -178,7 +178,105 @@
  .results-container .results-col2 h4 {
 	 text-align: center;
 }
- 
+ */
+
+/* Simpler, Grid-based Diamond Detail */
+.results-container .grid-mid h4,
+.results-container .grid-mid h2 {
+	line-height: 40px;
+}
+.grid-top {
+	grid-area: top;
+	grid-column-start: 1;
+	grid-column-end: 4;
+	grid-row-start: 1;
+	grid-row-end: 1;
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+.grid-top .col1 {
+	width: 25%;
+	flex: 1;
+}
+.grid-top .col2 {
+	width: 50%;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.grid-top .col3 {
+	width: 25%;
+	flex: 1;
+}
+.grid-mid {
+	grid-area: mid;
+	grid-column-start: 1;
+	grid-column-end: 4;
+	grid-row-start: 2;
+	grid-row-end: 2;
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+.grid-mid .col1 {
+	width: 25%;
+	flex: 1;
+	text-align: center;
+}
+.grid-mid .col2 {
+	width: 50%;
+	flex: 1;
+	text-align: center;
+}
+.grid-mid .col3 {
+	text-align: center;
+	width: 25%;
+	flex: 1;
+}
+.grid-bottom {
+	grid-area: bottom;
+	grid-column-start: 1;
+	grid-column-end: 4;
+	grid-row-start: 3;
+	grid-row-end: 3;
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+.grid-bottom .col1 {
+	width: 25%;
+	flex: 1;
+}
+.grid-bottom .col2 {
+	width: 50%;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.grid-bottom .col3 {
+	width: 25%;
+	flex: 1;
+}
+.results-container {
+	display: grid;
+	/*grid-template-rows: 25% 1fr 25%; */
+	grid-template-columns: 45% 10% 45%;
+
+	grid-template-areas: "top top top" "mid mid mid" "bottom bottom bottom";
+	width: 100%;
+	height: auto;
+	position: relative;
+	background-image: url(img/blue-bg.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+}
+.results-container:nth-of-type(even) {
+	background-image: url(img/yellow-bg.svg);
+}
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
