@@ -25,9 +25,11 @@ class DiamondDetails extends \psyML_Wp {
 
             $keygrid[$key] = $degree;
         }
-        error_log(print_r($keygrid,true));
-
+        
+        $count = 0;
         foreach(Content::DIAMONDS as $diamond => $subdimensions){
+            $even = ($count % 2 == 0);
+            $count++;
             $topkey = $subdimensions['top'];
             $topvalue = $keygrid[$topkey];
             $leftkey =  $subdimensions['left'];
@@ -44,21 +46,31 @@ class DiamondDetails extends \psyML_Wp {
             $markup.='<div class="col1"><h5 class="results-colheader">';
             $markup.= self::prettykey($topkey).' '.ucfirst($topvalue).'</h5><div class="results-description">'.Content::SUBDIMENSION[$topkey][$topvalue];
             $markup.='</div></div>';
-            $markup.='<div class="col2"><h4 class="results-col-head">';
-            $markup.=self::prettykey($topkey).'</h4></div><div class="col3">';
+            $markup.='<div class="col2">';
+            $markup.='</div><div class="col3">';
             $markup.='<h5 class="results-colheader">'.self::prettykey($rightkey);
             $markup.=' '.ucfirst($rightvalue).'</h5><div class="results-description">'.Content::SUBDIMENSION[$rightkey][$rightvalue];
             $markup.='</div></div></div><div class="grid-mid"><div class="col1">';
-            $markup.='<h4 class="results-col-head">'.$leftkey.'</h4></div>';
-            $markup.='<div class="col2"><h2 class="results-diamondhead">'.$diamond.'</h2></div>';
-            $markup.='<div class="col3"><h4 class="results-col-head">'.self::prettykey($rightkey).'</h4>';
+            $markup.='</div>';
+            $markup.='<div class="col2">';
+            if($even){
+                $markup.='<img class="diamond" src="' . self::get_plugin_url() . '/dist/css/img/blue-bg.svg">';
+            } else {
+                $markup.='<img class="diamond" src="' . self::get_plugin_url() . '/dist/css/img/yellow-bg.svg">';
+            }
+            $markup.='<h4 class="results-col-head">'.self::prettykey($topkey).'</h4>';
+            $markup.='<h4 class="results-col-head">'.self::prettykey($leftkey).'</h4>';
+            $markup.='<h2 class="results-diamondhead">'.self::prettykey($diamond).'</h2>';
+            $markup.='<h4 class="results-col-head">'.self::prettykey($rightkey).'</h4>';
+            $markup.='<h4 class="results-col-head">'.self::prettykey($bottomkey). '</h4>';
+            $markup.='</div><div class="col3">';
             $markup.='</div></div>';
             $markup.='<div class="grid-bottom"><div class="col1"><h5 class="results-colheader">';
             $markup.=self::prettykey($leftkey).' '.ucfirst($leftvalue).'</h5>';
             $markup.='<div class="results-description">'.Content::SUBDIMENSION[$leftkey][$leftvalue];
             $markup.='</div></div>';
-            $markup.='<div class="col2"><h4 class="results-col-head">'.self::prettykey($bottomkey);
-            $markup.='</h4></div>';
+            $markup.='<div class="col2">';
+            $markup.='</div>';
             $markup.='<div class="col3"><h5 class="results-colheader">'.self::prettykey($bottomkey);
             $markup.=' '.ucfirst($bottomvalue).'</h5><div class="results-description">';
             $markup.=Content::SUBDIMENSION[$bottomkey][$bottomvalue].'</div></div>';  

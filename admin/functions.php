@@ -41,6 +41,12 @@ class AdminFunctions extends \psyML_Wp {
         ));
     }
 
+    public static function nicename( $text ){
+        if(strpos($text, '-')) str_replace('-', ' ', $text);
+        if(strpos($text, '_')) str_replace('_', ' ', $text);
+        
+    }
+
     public static function uninstall_delete_posts(){
         if(!empty($_POST['deleteposts'])){
             if($_POST['deleteposts']=='yes' ) {
