@@ -58,11 +58,11 @@ class DiamondDetails extends \psyML_Wp {
             } else {
                 $markup.='<img class="diamond" src="' . self::get_plugin_url() . '/dist/css/img/yellow-bg.svg">';
             }
-            $markup.='<h4 class="results-col-head">'.self::prettykey($topkey).'</h4>';
-            $markup.='<h4 class="results-col-head">'.self::prettykey($leftkey).'</h4>';
+            $markup.='<h4 id="'.$topkey.'" class="results-col-head">'.self::prettykey($topkey).'</h4>';
+            $markup.='<h4 id="'.$leftkey.'" class="results-col-head">'.self::prettykey($leftkey).'</h4>';
             $markup.='<h2 class="results-diamondhead">'.self::prettykey($diamond).'</h2>';
-            $markup.='<h4 class="results-col-head">'.self::prettykey($rightkey).'</h4>';
-            $markup.='<h4 class="results-col-head">'.self::prettykey($bottomkey). '</h4>';
+            $markup.='<h4 id="'.$rightkey.'" class="results-col-head">'.self::prettykey($rightkey).'</h4>';
+            $markup.='<h4 id="'.$bottomkey.'" class="results-col-head">'.self::prettykey($bottomkey). '</h4>';
             $markup.='</div><div class="col3">';
             $markup.='</div></div>';
             $markup.='<div class="grid-bottom"><div class="col1"><h5 class="results-colheader">';
