@@ -168,7 +168,7 @@ h1.fullpage {
     grid-row-end: 2;
     /* height: 100%; */
     height: auto;
-    display: flex;
+    display: flex !important;
     justify-content: space-around;
 }
 
@@ -279,38 +279,44 @@ div.col2 img {
 #Forgiving {
     z-index: 2;
     padding: 0;
-    margin: 0;
+    margin-bottom: 15px;
     transform: rotate( -45deg);
 }
 
 #Sincerity {
     left: -25px;
     bottom: 60%;
+    width: 100px;
 }
 
 #Fearfulness {
     left: -35px;
     bottom: 60%;
+    width: 100px;
 }
 
 #Organization {
     left: -5%;
     bottom: 65%;
+    width: 140px;
 }
 
 #Forgiving {
     left: -35px;
     bottom: 60%;
+    width: 100px;
 }
 
 #Social_Self-Esteem {
     left: -40px;
     bottom: 68%;
+    width: 200px;
 }
 
 #Aesthetic_Appreciation {
     left: -50px;
     bottom: 70%;
+    width: 250px;
 }
 
 
@@ -432,12 +438,134 @@ div.col2 img {
 /* Rafi modifying */
 
 @media (max-width: 576px) {
-    div.grid-mid {
+    .grid-mid {
         position: absolute;
-        margin: 0 auto;
+        margin: 0 auto 40%;
         width: 100%;
         z-index: 2;
-        bottom: 50%;
+        /* bottom: 80%; */
+        bottom: 100% !important;
+        display: flex;
+    }
+    h1.fullpage {
+        margin-bottom: 45%;
+        display: block !important;
+        margin-top: 5%;
+    }
+    .grid-top,
+    .grid-bottom {
+        display: inline-grid;
+        grid-gap: 5%;
+        margin-top: 5%;
+    }
+    .grid-top .col1,
+    .grid-top .col2,
+    .grid-top .col3,
+    .grid-bottom .col1,
+    .grid-bottom .col2,
+    .grid-bottom .col3 {
+        flex: 1;
+        width: 100% !important;
+    }
+    /* LEFT-TOP SECTION */
+    #Fearfulness {
+        left: -11%;
+        bottom: 66%;
+    }
+    #Sincerity {
+        left: -14%;
+        bottom: 70%;
+    }
+    #Organization {
+        left: -17%;
+        bottom: 67%;
+    }
+    #Social_Self-Esteem {
+        left: -22%;
+        bottom: 75%;
+    }
+    #Aesthetic_Appreciation {
+        left: -27%;
+        bottom: 81%;
+    }
+    #Forgiving {
+        left: -13%;
+        bottom: 67%;
+    }
+    /* LEFT-BOTTOM SECTION */
+    #Fairness {
+        bottom: 25%;
+        left: 10%;
+    }
+    #Anxiety {
+        bottom: 15%;
+        left: 10%;
+    }
+    #Social_Boldness {
+        bottom: 15%;
+        left: -10%;
+    }
+    #Inquisitiveness {
+        bottom: 14%;
+        left: -5%;
+    }
+    #Prudence {
+        bottom: 14%;
+        left: 10%;
+    }
+    #Patience {
+        bottom: 13%;
+        left: 10%;
+    }
+    /* RIGHT-TOP SECTION */
+    #Modesty {
+        right: 5%;
+        top: 0%;
+    }
+    #Dependence {
+        right: -9%;
+        top: 6%;
+    }
+    #Liveliness {
+        right: 1%;
+        top: 2%;
+    }
+    #Creativity {
+        right: 1%;
+        top: 2%;
+    }
+    #Diligence {
+        right: 7%;
+        top: 2%;
+    }
+    #Flexibility {
+        right: 0%;
+        top: 2%;
+    }
+    /* RIGHT-BOTTOM SECTION */
+    #Greed_Avoidance {
+        right: -25%;
+        top: 53%;
+    }
+    #Sentimentality {
+        right: -12%;
+        top: 67%;
+    }
+    #Sociability {
+        right: 2%;
+        top: 68%;
+    }
+    #Perfectionism {
+        right: -3%;
+        top: 68%;
+    }
+    #Gentleness {
+        right: 1%;
+        top: 69%;
+    }
+    #Unconventionality {
+        right: -19%;
+        top: 66%;
     }
 }
 
